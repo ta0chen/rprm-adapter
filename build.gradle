@@ -2,8 +2,8 @@ group 'com.polycom'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-
-sourceCompatibility = 1.5
+apply plugin: 'idea'
+//sourceCompatibility = 1.5
 
 repositories {
     mavenLocal()
@@ -13,12 +13,124 @@ repositories {
     maven {
         url "http://172.21.105.53/nexus/content/repositories/pctc-automation-host-repo/"
     }
+    maven {
+        url "http://nexus.virtuos.uos.de/nexus/content/repositories/public/"
+    }
+    maven {
+        url "http://repo.spring.io/libs-milestone/"
+    }
+}
+
+compileJava {
+    options.fork = true
+    options.forkOptions.executable = "javac" // assumes that javac is on PATH
+    options.compilerArgs << "-XDignore.symbol.file"
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'com.polycom:dsl-base:0.0.1'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'org.slf4j:slf4j-simple:1.7.21'
     compile group: 'com.polycom.rprm', name: 'xma-webservices-core-driver', version: '10.0.0-0.0.7'
+    compile group: 'sun.misc', name: 'BASE64Decoder', version: '1.5'
+    compile group: 'com.polycom.3rdparty', name: 'ftp4j', version: '1.7.2'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.2.5'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '2.53.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.0'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.simpleframework', name: 'simple-xml', version: '2.6.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.5.3'
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-base', version: '2.5.3'
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.5.3'
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-xml-provider', version: '2.5.3'
+    compile group: 'com.polycom.api', name: 'plcm-active-call', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-alert', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-alerting-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-area', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-billing', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-caa-tenant', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-cdr', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-cdr-client-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-certificate', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-common', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-conference', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-conference-monitor', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-conference-room', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-conference-settings', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-conference-template', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-device', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-device-authentication', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-dial-alias', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-dial-rule', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-dial-string-reservation', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-dma-supercluster', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-embedded-dns-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-enterprise-directory', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-enterprise-directory-cache', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-error', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-eula', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-extensions', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-ext-gatekeeper', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-ext-sbc', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-ext-sip-peer', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-group', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-high-availability', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-hunt-group', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-integration', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-license', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-log-archive', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-log-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-login-policy', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-login-sessions', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-machine-account', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-mcu', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-mcu-pool', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-mcu-pool-order', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-naming', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-network', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-network-cloud', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-notification', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-objects', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-participant-availability', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-prefix-service', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-presence-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-provision', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-registration-policy', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-remote-alert-profile', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-remote-backup', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-reservation', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-room', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-location', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-security-settings', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-server-address', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-signaling-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-simplified-gateway-prefixes', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-site-topology', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-site-to-site-exclusion', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-snmp-config', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-status', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-task', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-territory', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-time', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-user', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-user-role', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-veq', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-vertical-service-code', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-user-domain', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-password', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-user-batch-operation', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-firsttime-setup', version: '3.2.0'
+    compile group: 'com.polycom.api', name: 'plcm-network-device', version: '3.2.0'
+    compile group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
+    compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.2.0'
+    compile group: 'org.restlet.jse', name: 'org.restlet', version: '2.3.1'
+    compile group: 'org.restlet.jse', name: 'org.restlet.ext.ssl', version: '2.1.7'
+    compile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'ch.ethz.ganymed', name: 'ganymed-ssh2', version: 'build210'
 }
